@@ -5,6 +5,7 @@ import CitySearch from "./components/CitySearch";
 import MoonLoader from "react-spinners/ClipLoader";
 import WeatherDetails from "./components/WeatherDetails";
 import { weatherDetailsType } from "./types/types";
+import axios from "axios";
 
 // App component
 const App = () => {
@@ -18,17 +19,16 @@ const App = () => {
 		setLoading(true);
 
 		// Fetching weather data from the API
-		const resp = await fetch(
+		const { data: resp } = await axios.get(
 			`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`
 		);
-		const jsonedResp = await resp.json();
 
 		// Processing the response
-		if (jsonedResp.cod === 200) {
-			setWeatherDetails(jsonedResp);
+		if (resp.cod === 200) {
+			setWeatherDetails(resp);
 			setError("");
 		}
-		if (jsonedResp.cod === "404") setError("No City Found!");
+		if (resp.cod === "404") setError("No City Found!");
 
 		setLoading(false);
 	};
