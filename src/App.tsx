@@ -25,11 +25,10 @@ const App = () => {
 			);
 
 			// Processing the response
-			if (resp.cod === 200) {
-				setWeatherDetails(resp);
-				setError("");
-			}
+			setWeatherDetails(resp);
+			setError("");
 		} catch (err) {
+			console.error(err);
 			setError("No City Found!");
 		} finally {
 			setLoading(false);
