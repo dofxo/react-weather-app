@@ -5,7 +5,7 @@ const WeatherDetails = ({
 }: {
 	weatherInfo?: weatherDetailsType;
 }) => {
-	if (!weatherInfo) return;
+	if (!weatherInfo) return <div></div>;
 
 	return (
 		<div className="flex flex-col w-full">
