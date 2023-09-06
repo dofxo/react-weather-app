@@ -16,21 +16,24 @@ const App = () => {
 
 	// Function to get city weather details
 	const getCityWeatherDetails = async (city: string) => {
-		setLoading(true);
+		try {
+			setLoading(true);
 
-		// Fetching weather data from the API
-		const { data: resp } = await axios.get(
-			`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`
-		);
+			// Fetching weather data from the API
+			const { data: resp } = await axios.get(
+				`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`
+			);
 
-		// Processing the response
-		if (resp.cod === 200) {
-			setWeatherDetails(resp);
-			setError("");
+			// Processing the response
+			if (resp.cod === 200) {
+				setWeatherDetails(resp);
+				setError("");
+			}
+		} catch (err) {
+			setError("No City Found!");
+		} finally {
+			setLoading(false);
 		}
-		if (resp.cod === "404") setError("No City Found!");
-
-		setLoading(false);
 	};
 
 	return (
